@@ -1,56 +1,61 @@
 package ld
 
 import (
-	"crypto/sha1"
-	"sort"
-	"strings"
+	//"crypto/sha1"
+	//"sort"
+	//"strings"
+	"errors"
 )
 
 // Normalize performs RDF normalization on the given JSON-LD input.
 // dataset: the expanded JSON-LD object to normalize.
 // Returns the normalized JSON-LD object.
 func (api *JsonLdApi) Normalize(dataset *RDFDataset, opts *JsonLdOptions) (interface{}, error) {
-	// create quads and map bnodes to their associated quads
-	quads := make([]*Quad, 0)
-	bnodes := make(map[string]interface{})
-	for graphName, triples := range dataset.Graphs {
-		if graphName == "@default" {
-			graphName = ""
-		}
-		for _, quad := range triples {
-			if graphName != "" {
-				if strings.Index(graphName, "_:") == 0 {
-					quad.Graph = NewBlankNode(graphName)
-				} else {
-					quad.Graph = NewIRI(graphName)
-				}
+	return nil, errors.New("Normalize removed for light lib.")
+	/*
+		// create quads and map bnodes to their associated quads
+		quads := make([]*Quad, 0)
+		bnodes := make(map[string]interface{})
+		for graphName, triples := range dataset.Graphs {
+			if graphName == "@default" {
+				graphName = ""
 			}
+			for _, quad := range triples {
+				if graphName != "" {
+					if strings.Index(graphName, "_:") == 0 {
+						quad.Graph = NewBlankNode(graphName)
+					} else {
+						quad.Graph = NewIRI(graphName)
+					}
+				}
 
-			quads = append(quads, quad)
+				quads = append(quads, quad)
 
-			for _, attrNode := range []Node{quad.Subject, quad.Object, quad.Graph} {
-				if attrNode != nil {
-					if IsBlankNode(attrNode) {
-						id := attrNode.GetValue()
-						if _, hasID := bnodes[id]; !hasID {
-							bnodes[id] = map[string]interface{}{
-								"quads": make([]*Quad, 0),
+				for _, attrNode := range []Node{quad.Subject, quad.Object, quad.Graph} {
+					if attrNode != nil {
+						if IsBlankNode(attrNode) {
+							id := attrNode.GetValue()
+							if _, hasID := bnodes[id]; !hasID {
+								bnodes[id] = map[string]interface{}{
+									"quads": make([]*Quad, 0),
+								}
 							}
+							quadsList := bnodes[id].(map[string]interface{})["quads"].([]*Quad)
+							bnodes[id].(map[string]interface{})["quads"] = append(quadsList, quad)
 						}
-						quadsList := bnodes[id].(map[string]interface{})["quads"].([]*Quad)
-						bnodes[id].(map[string]interface{})["quads"] = append(quadsList, quad)
 					}
 				}
 			}
 		}
-	}
 
-	// mapping complete, start canonical naming
-	normalizeUtils := NewNormalizeUtils(quads, bnodes, NewUniqueNamer("_:c14n"), opts.Format)
+		// mapping complete, start canonical naming
+		normalizeUtils := NewNormalizeUtils(quads, bnodes, NewUniqueNamer("_:c14n"), opts.Format)
 
-	return normalizeUtils.HashBlankNodes(GetKeys(bnodes))
+		return normalizeUtils.HashBlankNodes(GetKeys(bnodes))
+	*/
 }
 
+/*
 // NormalizeUtils keeps the state of the Normalisation process
 type NormalizeUtils struct {
 	namer  *UniqueNamer
@@ -572,3 +577,4 @@ func (p *Permutator) Next() []string {
 
 	return rval
 }
+*/

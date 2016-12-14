@@ -1,13 +1,14 @@
 package ld
 
 import (
-	"encoding/json"
-	"fmt"
-	"io"
-	"net/http"
-	"net/url"
-	"os"
-	"regexp"
+	//"encoding/json"
+	"errors"
+	//"fmt"
+	//"io"
+	//"net/http"
+	//"net/url"
+	//"os"
+	//"regexp"
 )
 
 const (
@@ -29,6 +30,15 @@ type RemoteDocument struct {
 type DocumentLoader interface {
 	LoadDocument(u string) (*RemoteDocument, error)
 }
+
+type LightDocumentLoader struct {
+}
+
+func (d *LightDocumentLoader) LoadDocument(u string) (*RemoteDocument, error) {
+	return nil, errors.New("noop")
+}
+
+/*
 
 // DefaultDocumentLoader is a standard implementation of DocumentLoader
 // which can retrieve documents via HTTP.
@@ -242,3 +252,4 @@ func (cdl *CachingDocumentLoader) PreloadWithMapping(urlMap map[string]string) e
 	}
 	return nil
 }
+*/

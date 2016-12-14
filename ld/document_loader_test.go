@@ -1,13 +1,14 @@
 package ld_test
 
 import (
-	"bytes"
-	. "github.com/kazarena/json-gold/ld"
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
-	"testing"
+//"bytes"
+//. "github.com/kazarena/json-gold/ld"
+//"github.com/stretchr/testify/assert"
+//"github.com/stretchr/testify/require"
+//"testing"
 )
 
+/*
 func TestLoadDocument(t *testing.T) {
 	dl := NewDefaultDocumentLoader(nil)
 
@@ -65,3 +66,4 @@ func TestCachingDocumentLoaderLoadDocument(t *testing.T) {
 
 	assert.Equal(t, "t1", rd.Document.(map[string]interface{})["@type"])
 }
+*/
