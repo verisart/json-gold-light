@@ -2,8 +2,8 @@ package ld_test
 
 import (
 	"encoding/json"
-	. "github.com/kazarena/json-gold/ld"
 	"github.com/stretchr/testify/assert"
+	. "github.com/verisart/json-gold-light/ld"
 	"io/ioutil"
 	"log"
 	"net/http"
